@@ -52,12 +52,12 @@ Quickly start building an App Builder application by using the App Builder proje
 
 ### Migrate to the new OAuth Server-to-Server credential
 
-The Service Account (JWT) credentials have been deprecated in favor of the OAuth Server-to-Server credentials. Your applications using the Service Account (JWT) credentials will stop working after Jun 30, 2025. You must migrate to the new credential by **Jun 30, 2025**, to ensure your application continues functioning. [Learn more](./authentication/ServerToServerAuthentication/migration.md)
+The Service Account (JWT) credentials have been deprecated in favor of the OAuth Server-to-Server credentials. Your applications using the Service Account (JWT) credentials will stop working after Jun 30, 2025. You must migrate to the new credential by **Jun 30, 2025**, to ensure your application continues functioning. [Learn more](./authentication/ServerToServerAuthentication/migration)
 
 
 ### Email alerts
 
-Adobe will send you [email alerts](email-alerts/index.md) whenever there is a potential or ongoing impact on your application. You can [add developers](email-alerts/index.md#managing-email-alert-recipients-in-an-enterprise-organization) in your organization as email alert recipients. You can also [pause email alerts](email-alerts/index.md#managing-noisy-email-alerts) for any projects that are not critical.
+Adobe will send you [email alerts](email-alerts/) whenever there is a potential or ongoing impact on your application. You can [add developers](email-alerts/#managing-email-alert-recipients-in-an-enterprise-organization) in your organization as email alert recipients. You can also [pause email alerts](email-alerts/#managing-noisy-email-alerts) for any projects that are not critical.
 
 ### Project Filters
 
@@ -65,4 +65,4 @@ Use Project Filters to narrow your search when looking for a specific project. Y
 
 ### Project Activity Logs
 
-View who created or last modified a project by visiting the Project overview page. You can also view the exact set of changes made to the project in the last year (who, what, and when) by visiting the [Activity Logs](projects/index.md#view-a-projects-activity-log) tab within the Project.
+View who created or last modified a project by visiting the Project overview page. You can also view the exact set of changes made to the project in the last year (who, what, and when) by visiting the [Activity Logs](projects/#view-a-projects-activity-log) tab within the Project.
