@@ -10,7 +10,7 @@ Adobe I/O Runtime requires a license. Please contact your Adobe sales representa
 
 Runtime can be enabled for an empty project from the **Project overview**. You can select **Runtime** from the **Add to Project** dropdown menu in the left navigation, or select **Enable runtime** from the quick start menu in the center or the screen. After selecting Runtime using one of these options, you will be taken to the Runtime overview where you can begin to configure Runtime, as shown in the [Get started with Runtime](#get-started-with-runtime) section found later in this document.
 
-For more information on creating an empty project, please begin by reading the [projects overview](../projects/index.md).
+For more information on creating an empty project, please begin by reading the [projects overview](../projects/).
 
 ![](../../images/runtime-empty-project.png)
 
