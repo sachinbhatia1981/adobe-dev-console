@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Login Success</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+            padding: 2rem 0;
+        }
+        .success-container {
+            text-align: center;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
+            width: 90%;
+        }
+        .success-message {
+            color: #2ecc71;
+            font-size: 24px;
+            margin-bottom: 1rem;
+        }
+        .home-link {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 1rem;
+        }
+        .home-link:hover {
+            text-decoration: underline;
+        }
+        .response-container {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            text-align: left;
+            overflow-wrap: break-word;
+        }
+        .button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 1rem;
+        }
+        .button:hover {
+            background-color: #2980b9;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .list-container {
+            margin-top: 2rem;
+            text-align: left;
+        }
+        .item {
+            padding: 1rem;
+            border: 1px solid #e1e1e1;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+            background-color: white;
+        }
+        .item-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .item-title {
+            font-weight: bold;
+            color: #2c3e50;
+            cursor: pointer;
+            margin-bottom: 0.5rem;
+        }
+        .item-title:hover {
+            color: #3498db;
+        }
+        .item-details {
+            color: #666;
+            font-size: 0.9em;
+        }
+        .creator-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        .monospace {
+            font-family: monospace;
+            background-color: #f8f9fa;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+        }
+        .project-item {
+            background-color: #f8f9fa;
+            padding: 0.8rem;
+            margin-top: 0.5rem;
+            border-radius: 4px;
+        }
+        .workspace-form {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .form-input {
+            width: 100%;
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        .form-submit {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 0.5rem;
+        }
+        .form-submit:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-message">Successfully Logged In!</div>
+        <div class="button-container">
+            <a href="/" class="home-link">Return to Home</a>
+            <button class="button" onclick="location.href='/profile'">Get Adobe Profile</button>
+            <button class="button" onclick="location.href='/accounts'">List Frame.io Accounts</button>
+        </div>
+        
+        {% if accounts %}
+        <div class="list-container">
+            <h3>Your Frame.io Accounts:</h3>
+            {% for account in accounts %}
+            <div class="item">
+                <div onclick="location.href='/workspaces/{{ account.id }}'" style="cursor: pointer;">
+                    <div class="item-title">{{ account.display_name }}</div>
+                    <div class="item-details">ID: <span class="monospace">{{ account.id }}</span></div>
+                </div>
+                <button class="button" onclick="location.href='/create_workspace/{{ account.id }}'">Create Workspace</button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if show_workspace_form %}
+        <div class="workspace-form">
+            <h3>Create New Workspace</h3>
+            <form action="/create_workspace/{{ account_id }}" method="POST">
+                <input type="text" name="workspace_name" placeholder="Enter workspace name" class="form-input" required>
+                <button type="submit" class="form-submit">Create</button>
+            </form>
+        </div>
+        {% endif %}
+
+        {% if workspaces %}
+        <div class="list-container">
+            <h3>Workspaces:</h3>
+            {% for workspace in workspaces %}
+            <div class="item">
+                <div class="item-header">
+                    {% if workspace.get('creator', {}).get('avatar_url') %}
+                    <img src="{{ workspace.creator.avatar_url }}" alt="Creator Avatar" class="avatar">
+                    {% endif %}
+                    <div>
+                        <div class="item-title" onclick="location.href='/projects/{{ account_id }}/{{ workspace.id }}'">
+                            {{ workspace.get('name', 'Unnamed Workspace') }}
+                        </div>
+                        <div class="item-details">ID: <span class="monospace">{{ workspace.get('id', 'N/A') }}</span></div>
+                    </div>
+                </div>
+                {% if workspace.get('creator') %}
+                <div class="creator-info">
+                    <div>Creator: {{ workspace.get('creator', {}).get('name', 'Unknown') }}</div>
+                    <div>Email: {{ workspace.get('creator', {}).get('email', 'N/A') }}</div>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if projects %}
+        <div class="list-container">
+            <h3>Projects:</h3>
+            {% for project in projects %}
+            <div class="item">
+                <div class="item-title">{{ project.name }}</div>
+                <div class="item-details">
+                    Root Folder ID: <span class="monospace">{{ project.root_folder_id }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if response %}
+        <div class="response-container">
+            <h3>Response Data:</h3>
+            <pre>{{ response }}</pre>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html> 
